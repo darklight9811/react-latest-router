@@ -6,16 +6,12 @@ import RouterContext    from "../contexts/Router";
 
 //Interfaces
 import { iRoute }   from "../interfaces/components";
-import { iPath }    from "../interfaces/helpers";
-
-//Helpers
-import { testPath }    from "../helpers/route";
 
 //Guards
-import { buildGuard }   from "../helpers/guard";
-import defaultBundle    from "../guards";
+import { buildGuard, printGuard }   from "../helpers/guard";
+import defaultBundle                from "../guards";
 
-export default function Router ({basepath = window.location.pathname, guards = ["web"], ...props}) {
+export default function Router ({basepath = window.location.pathname, guards = {}, ...props}) {
 
     //----------------------------
     // Properties
@@ -23,39 +19,28 @@ export default function Router ({basepath = window.location.pathname, guards = [
 
     //states
     const [ current, setcurrent ]   = React.useState(basepath);
-    const [ readyguards ]           = React.useState(defaultBundle);
+    const [ readyguards ]           = React.useState({...defaultBundle, ...guards});
+    const [ data, setdata ]         = React.useState({});
 
     //----------------------------
     // Callbacks
     //----------------------------
 
-    const onProcessRoute = React.useCallback((path : string, data : iRoute) : boolean => {
-        //Check when
-        if (!onProcessValidate(data.when)) return false;
+    const onProcessRoute = React.useCallback((data : iRoute) : boolean => { 
+        //Remove reserved props
+        const { to, ...clearedProps } = data;
         
-        //Check path
-        if (!onProcessPath(path)) return false;
-        
-        //Check guards
+        //Check priority guards
         if (!onProcessGuard(data.guard, data)) return false;
+
+        //Check non priority guards
+        if (!onProcessGuard(printGuard(clearedProps), data, false)) return false;
 
         //Route matches
         return true;
     }, [current]);
 
-    const onProcessValidate = React.useCallback((when : boolean | undefined) => {
-        //When validation not required
-        if (when === undefined) return true;
-
-        //Validate when
-        return !!when;
-    }, [current]);
-
-    const onProcessPath = React.useCallback((path : string) : iPath|boolean => {
-        return testPath(path, current);
-    }, [current]);
-
-    const onProcessGuard = React.useCallback((guards : string[]|string|undefined, route : iRoute) : boolean => {
+    const onProcessGuard = React.useCallback((guards : string[]|string|undefined, route : iRoute, priority : boolean = true) : boolean => {
         //Guard check not necessary
         if (guards === undefined) return true;
 
@@ -69,26 +54,27 @@ export default function Router ({basepath = window.location.pathname, guards = [
 
             //Guard available
             if (guard.name in readyguards) {
-                const response = readyguards[guard.name](guard.arguments, route, props);
+                const response = readyguards[guard.name](guard.arguments, {route, router: props, setdata, context});
 
                 //Guard fail
                 if (!response) return false;
             }
-            else {
+            else if (priority) {
                 console.warn("Requested guard [" + _guards[i] + "] was not found.");
             }
         }
 
         //All guards passes
         return true;
-    }, []);
+    }, [current, setdata, props]);
 
     const onRedirect = React.useCallback((newpath : string) : void => {
         setcurrent(newpath);
     }, [current]);
 
-    const handleHash = React.useCallback(() => {
-        console.log("External hash change");
+    const handleHash = React.useCallback((event) => {
+        event.preventDefault();
+
         setcurrent(window.location.pathname);
     }, [current]);
     
@@ -118,10 +104,9 @@ export default function Router ({basepath = window.location.pathname, guards = [
     const context = {
         current:            current,
         processRoute:       onProcessRoute,
-        processPath:        onProcessPath,
         processGuard:       onProcessGuard,
         redirect:           onRedirect,
-        processValidate:    onProcessValidate,
+        data:               data,
     };
 
     return (

@@ -15,3 +15,23 @@ export function buildGuard (guardstring : string) : iGuard {
         return { name: split[0], arguments : _arguments };
     }
 }
+
+//Turn a prop into a guard string
+export function printGuard (props : Object) : string[] {
+    let response : string[] = [];
+
+    for (const key in props) {
+        const prop = props[key];
+
+        //has argument
+        if (prop !== true) {
+            response.push(key + ":" + prop);
+        }
+        //without argument
+        else {
+            response.push(key);
+        }
+    }
+
+    return response;
+}

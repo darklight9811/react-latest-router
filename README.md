@@ -13,16 +13,17 @@ npm install --save react-complete-router
 ## Usage
 
 ```tsx
-import * as React from 'react'
+import * as React			from 'react';
 
-import MyComponent from 'react-complete-router'
+import { Router, Route } 	from 'react-complete-router';
 
-class Example extends React.Component {
-  render () {
+export default function App () {
     return (
-      <MyComponent />
-    )
-  }
+	  <Router>
+	  	<Route to={<h1>Home</h1>} path="/">
+	  	<Route to={<h1>About</h1>} path="/about">
+	  </Router>
+    );
 }
 ```
 

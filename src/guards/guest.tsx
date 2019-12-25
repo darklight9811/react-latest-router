@@ -1,16 +1,13 @@
 //Interfaces
-import { iRoute } from "../interfaces/components";
+import { iGuardData } from "../interfaces/helpers";
 
 //Check router authentication and only pass if none is given
-export default function guest (_arguments : any[] | null, route : iRoute, router : {auth: any}) {
+export default function guest (_arguments : any[] | null, data : iGuardData) {
     //No auth given
-    if (!("auth" in router)) return true;
-
-    //Check if route is functional
-    if (route.to === null) return false;
+    if (!("auth" in data.router)) return true;
 
     //Check for guest
-    if (router.auth == null) return true;
+    if (data.router["auth"] == null) return true;
 
     //You are actually logged
     return false;

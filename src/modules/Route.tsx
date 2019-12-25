@@ -5,6 +5,9 @@ import * as React 	    from "react";
 import RouterContext    from "../contexts/Router";
 import iRouterContext   from "../interfaces/contexts";
 
+//Interfaces
+import { iRoute } from "../interfaces/components";
+
 export default function Route ({...props}) {
     
     //----------------------------
@@ -22,7 +25,7 @@ export default function Route ({...props}) {
     //----------------------------
 
     const render = React.useMemo(() : boolean => {
-        return processRoute(props.path, props);
+        return processRoute(props as iRoute);
     }, [current]);
 
     //----------------------------

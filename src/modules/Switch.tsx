@@ -35,7 +35,7 @@ export default function Switch ({...props}) {
             if (!React.isValidElement(child)) continue;
 
             //Check if route passes
-            if (processRoute(childprops.path as string, childprops)) return setcomponent(child);
+            if (processRoute(childprops)) return setcomponent(child);
         }
 
         //No child selected

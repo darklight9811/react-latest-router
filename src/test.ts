@@ -1,7 +1,7 @@
-import ExampleComponent from './'
+import { Router } from './';
 
-describe('ExampleComponent', () => {
-  it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
-  })
-})
+describe('Router', () => {
+	it('is truthy', () => {
+		expect(Router).toBeTruthy();
+	});
+});
