@@ -17,7 +17,7 @@ export default function Switch ({...props}) {
     const [ ComponentToRender, setcomponent ] = React.useState();
 
     //Contexts
-    const { processRoute, current } = React.useContext(RouterContext) as iRouterContext;
+    const { processRoute, current, data } = React.useContext(RouterContext) as iRouterContext;
 
     //----------------------------
     // Effects
@@ -47,7 +47,7 @@ export default function Switch ({...props}) {
 
         //No child selected
         return setcomponent(null);
-    }, [current]);
+    }, [current, data]);
 
     //----------------------------
     // Render

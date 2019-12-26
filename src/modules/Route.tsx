@@ -15,7 +15,7 @@ export default function Route ({to = () => null, ...props}) {
     //----------------------------
 
     //contexts
-    const { processRoute, current }  = React.useContext(RouterContext) as iRouterContext;
+    const { processRoute, current, data }  = React.useContext(RouterContext) as iRouterContext;
 
     //----------------------------
     // Memos
@@ -31,7 +31,7 @@ export default function Route ({to = () => null, ...props}) {
 
         //Route not passes
         return null;
-    }, [current]);
+    }, [current, data]);
 
     //----------------------------
     // Render

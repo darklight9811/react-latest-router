@@ -20,7 +20,6 @@ export default function Router ({basepath = window.location.pathname, guards = {
     //states
     const [ current, setcurrent ]   = React.useState(basepath);
     const [ readyguards ]           = React.useState({...defaultBundle, ...guards});
-    const [ data, setdata ]         = React.useState({});
 
     //----------------------------
     // Callbacks
@@ -40,7 +39,7 @@ export default function Router ({basepath = window.location.pathname, guards = {
 
         //Route matches
         return {...(prioritydata as Object),...(nonprioritydata as Object)};
-    }, [current]);
+    }, [current, props]);
 
     const onProcessGuard = React.useCallback((guards : string[]|string|undefined, route : iRoute, priority : boolean = true) : Object | boolean => {
         //Props that will be filled to the route by the end of the process
@@ -59,7 +58,7 @@ export default function Router ({basepath = window.location.pathname, guards = {
 
             //Guard available
             if (guard.name in readyguards) {
-                const response = readyguards[guard.name](guard.arguments, {route, router: props, setdata, context});
+                const response = readyguards[guard.name](guard.arguments, {route, router: props, context});
 
                 //Guard fail
                 if (!response) return false;
@@ -74,7 +73,7 @@ export default function Router ({basepath = window.location.pathname, guards = {
 
         //All guards passes
         return data;
-    }, [current, setdata, props]);
+    }, [current, props]);
 
     const onRedirect = React.useCallback((newpath : string) : void => {
         setcurrent(newpath);
@@ -114,7 +113,7 @@ export default function Router ({basepath = window.location.pathname, guards = {
         processRoute:       onProcessRoute,
         processGuard:       onProcessGuard,
         redirect:           onRedirect,
-        data:               data,
+        data:               props,
     };
 
     return (
