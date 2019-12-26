@@ -26,21 +26,26 @@ export default function Router ({basepath = window.location.pathname, guards = {
     // Callbacks
     //----------------------------
 
-    const onProcessRoute = React.useCallback((data : iRoute) : boolean => { 
+    const onProcessRoute = React.useCallback((data : iRoute) : Object | boolean => { 
         //Remove reserved props
-        const { to, ...clearedProps } = data;
+        const { to, guard, ...clearedProps } = data;
         
         //Check priority guards
-        if (!onProcessGuard(data.guard, data)) return false;
+        const prioritydata = onProcessGuard(guard, data);
+        if (!prioritydata) return false;
 
         //Check non priority guards
-        if (!onProcessGuard(printGuard(clearedProps), data, false)) return false;
+        const nonprioritydata = onProcessGuard(printGuard(clearedProps), data, false);
+        if (!nonprioritydata) return false;
 
         //Route matches
-        return true;
+        return {...(prioritydata as Object),...(nonprioritydata as Object)};
     }, [current]);
 
-    const onProcessGuard = React.useCallback((guards : string[]|string|undefined, route : iRoute, priority : boolean = true) : boolean => {
+    const onProcessGuard = React.useCallback((guards : string[]|string|undefined, route : iRoute, priority : boolean = true) : Object | boolean => {
+        //Props that will be filled to the route by the end of the process
+        let data = {};
+        
         //Guard check not necessary
         if (guards === undefined) return true;
 
@@ -58,6 +63,9 @@ export default function Router ({basepath = window.location.pathname, guards = {
 
                 //Guard fail
                 if (!response) return false;
+
+                //Fill data
+                if (typeof response === "object") data = {...data, ...response};
             }
             else if (priority) {
                 console.warn("Requested guard [" + _guards[i] + "] was not found.");
@@ -65,7 +73,7 @@ export default function Router ({basepath = window.location.pathname, guards = {
         }
 
         //All guards passes
-        return true;
+        return data;
     }, [current, setdata, props]);
 
     const onRedirect = React.useCallback((newpath : string) : void => {

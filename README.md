@@ -27,6 +27,16 @@ export default function App () {
 }
 ```
 
+## Guards
+Guards are what make this package unique, enabling to customize even our path algorythm, you may add and extend any behaviour inside of the router. We already come with some useful guards for you:
+
+- when : check a simple validation inside of the route to see if it can be rendered
+- path : our path check is a guard, so you can toggle with yours in case of need
+- guest : check if the router is auth logged and prevent render if so
+- logged : check if the router is auth logged and prevent to render if not so
+
+Guards are separated in two categories: priority and non-priority. Priority are guards called inside of the guard prop, if they are not found inside of the router, the router will fail. Non-priority are the route props (with a few exceptions such as to and guard, that are reserved keywords) and won't cause any trouble if not found.
+
 ## License
 
 BSD-3 © [aposoftworks](https://github.com/aposoftworks)

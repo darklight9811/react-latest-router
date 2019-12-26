@@ -1,23 +1,26 @@
 //Core
-import React, { Component } from '../../node_modules/react';
+import React from '../../node_modules/react';
 
 //Router
 import { Router, Route, Switch, Link } from '../../';
 
-export default class App extends Component {
-	render() {
-		return (
-			<Router>
-				<h1>React Complete Router</h1>
+//Views
+import View from './View';
 
-				<Link to="/">To home</Link>
-				<Link to="/help">To help</Link>
+export default function App () {
+	return (
+		<Router>
+			<h1>React Complete Router</h1>
 
-				<Switch>
-					<Route path="/help" to={<h1>Help</h1>} />
-					<Route path="/" to={<h1>Home</h1>} />
-				</Switch>
-			</Router>
-		)
-	}
+			<Link to="/">To home</Link>
+			<Link to="/help">To help</Link>
+			<Link to="/32">To custom</Link>
+
+			<Switch>
+				<Route path="/" to={<h1>Home</h1>} />
+				<Route path="/help" to={<h1>Help</h1>} />
+				<Route path="/{id}/" to={View} />
+			</Switch>
+		</Router>
+	);
 }

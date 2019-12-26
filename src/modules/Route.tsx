@@ -8,7 +8,7 @@ import iRouterContext   from "../interfaces/contexts";
 //Interfaces
 import { iRoute } from "../interfaces/components";
 
-export default function Route ({...props}) {
+export default function Route ({to = () => null, ...props}) {
     
     //----------------------------
     // Properties
@@ -17,20 +17,25 @@ export default function Route ({...props}) {
     //contexts
     const { processRoute, current }  = React.useContext(RouterContext) as iRouterContext;
 
-    //consts
-    const Component         = props.to;
-
     //----------------------------
     // Memos
     //----------------------------
 
-    const render = React.useMemo(() : boolean => {
-        return processRoute(props as iRoute);
+    const Component = React.useCallback(() : JSX.Element | null => {
+        const response = processRoute(props as iRoute);
+
+        //Route passes
+        if (response && to !== null) {
+            return React.createElement(to, {...props, ...(response as Object)});
+        }
+
+        //Route not passes
+        return null;
     }, [current]);
 
     //----------------------------
     // Render
     //----------------------------
 
-    return render && <Component />;
+    return <Component />;
 }

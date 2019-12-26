@@ -5,7 +5,6 @@ import * as React 	from "react";
 import RouterContext    from "../contexts/Router";
 
 //Interfaces
-import { iRoute }       from "../interfaces/components";
 import iRouterContext   from "../interfaces/contexts";
 
 export default function Switch ({...props}) {
@@ -29,13 +28,21 @@ export default function Switch ({...props}) {
 
         for (let i = 0; i < children.length; i++) {
             const child : JSX.Element = children[i];
-            const childprops : iRoute = child.props;
+            const {to, ...childprops} = child.props;
 
             //Check if child is valid
             if (!React.isValidElement(child)) continue;
 
             //Check if route passes
-            if (processRoute(childprops)) return setcomponent(child);
+            const result = processRoute(childprops);
+            if (result) {
+                const newprops = {...childprops, ...(result as Object)};
+
+                //Is a component
+                if (React.isValidElement(to)) return setcomponent (to);
+                //Is a literal
+                else return setcomponent(React.createElement(to, newprops));
+            }
         }
 
         //No child selected
@@ -46,5 +53,7 @@ export default function Switch ({...props}) {
     // Render
     //----------------------------
 
-    return ComponentToRender ? ComponentToRender.props.to : null;
+    console.log(ComponentToRender);
+
+    return ComponentToRender ? ComponentToRender:null;
 }
