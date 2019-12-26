@@ -1,5 +1,5 @@
 //Test if the current path passes
-export function testPath (path : string, current : string, exact : boolean = false) : Object | boolean {
+export function testPath (path : string, current : string, exact : boolean = true) : Object | boolean {
     //Paths
     const splitpath     = path.split("/").filter( value => value !== "");
     const splitcurrent  = current.split("/").filter( value => value !== "");
