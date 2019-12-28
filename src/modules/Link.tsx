@@ -14,7 +14,7 @@ export default function Route ({...props}) {
     //----------------------------
 
     //contexts
-    const { redirect } = React.useContext(RouterContext) as iRouterContext;
+    const { processRoute } = React.useContext(RouterContext) as iRouterContext;
 
     //----------------------------
     // Callbacks
@@ -24,8 +24,8 @@ export default function Route ({...props}) {
         //Prevent page reload
         event.preventDefault();
 
-        //Redirect
-        redirect(props.to);
+        //Run guards
+        processRoute(props);
     }, [props]);
 
     //----------------------------
