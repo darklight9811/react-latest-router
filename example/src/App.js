@@ -12,9 +12,9 @@ export default function App () {
 		<Router>
 			<h1>React Complete Router</h1>
 
-			<Link to="/">To home</Link>
-			<Link to="/help">To help</Link>
-			<Link to="/32">To custom</Link>
+			<Link link="/" 		active className="test">To home</Link>
+			<Link link="/help" 	active className="test">To help</Link>
+			<Link link="/32" 	active className="test">To custom</Link>
 
 			<Switch>
 				<Route path="/" to={<h1>Home</h1>} />

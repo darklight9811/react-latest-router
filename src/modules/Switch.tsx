@@ -53,7 +53,5 @@ export default function Switch ({...props}) {
     // Render
     //----------------------------
 
-    console.log(ComponentToRender);
-
     return ComponentToRender ? ComponentToRender:null;
 }

@@ -8,13 +8,13 @@ import RouterContext from "../contexts/Router";
 import iRouterContext from "../interfaces/contexts";
 
 export default function Route ({...props}) {
-    
+
     //----------------------------
     // Properties
     //----------------------------
 
     //contexts
-    const { processRoute } = React.useContext(RouterContext) as iRouterContext;
+    const { redirect } = React.useContext(RouterContext) as iRouterContext;
 
     //----------------------------
     // Callbacks
@@ -24,8 +24,11 @@ export default function Route ({...props}) {
         //Prevent page reload
         event.preventDefault();
 
-        //Run guards
-        processRoute(props);
+        //Add extra functionality
+        if ("onClick" in props) props.onClick(event);
+
+        //Redirect
+        redirect(props.to);
     }, [props]);
 
     //----------------------------
@@ -37,4 +40,4 @@ export default function Route ({...props}) {
             {props.children}
         </a>
     );
-}
+} 

@@ -8,3 +8,8 @@ export interface iGuardData {
     router                  : Object,
     context                 : Object,
 }
+
+export interface iGuardObject {
+    dependencyCheck (value : string | string[]) : Promise<boolean>,
+    passive         ()                          : Promise<boolean>,
+}
