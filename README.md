@@ -37,6 +37,12 @@ Guards are what make this package unique, enabling to customize even our path al
 
 Guards are separated in two categories: priority and non-priority. Priority are guards called inside of the guard prop, if they are not found inside of the router, the router will fail. Non-priority are the route props (with a few exceptions such as to and guard, that are reserved keywords) and won't cause any trouble if not found.
 
+## Experimental branch
+If you want to keep up with the latest experiments and resources, you can check out this repository:
+```
+npm i git+https://github.com/darklight9811/react-latest-router.git
+```
+
 ## License
 
 BSD-3 © [aposoftworks](https://github.com/aposoftworks)

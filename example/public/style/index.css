@@ -1,0 +1,27 @@
+* {
+    color: white;
+}
+body {
+    background-color: #121212;
+    overflow-x: hidden;
+}
+.site-home {
+    height: 100vh;
+    overflow: hidden;
+}
+.site-title {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 45vh;
+}
+
+.sidebar {
+    background-color: #343434;
+    height: 100vh;
+}
+
+.sidebar-links {
+    display: flex;
+    flex-direction: column;
+}
