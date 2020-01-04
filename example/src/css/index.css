@@ -14,7 +14,7 @@ body {
     position: absolute;
     width: 100%;
     text-align: center;
-    top: 45vh;
+    top: 25vh;
 }
 
 .sidebar {
@@ -41,6 +41,31 @@ pre {
 
 .dashview {
     animation: fadein 0.3s ease;
+}
+
+.sidebar-links a,.linkable {
+    color: #bfbfbf;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+}
+
+.sidebar-links a:before,.linkable:before {
+    content: "";
+    border-left: 2px solid white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: height 0.3s ease;
+}
+
+.sidebar-links a:hover,.sidebar-links a.active,.linkable:hover,.linkable.active {
+    padding-left: 20px;
+    color: white;
+}
+.sidebar-links a:hover:before,.sidebar-links a.active:before,.linkable:hover:before,.linkable.active:before {
+    height: 100%;
 }
 
 @keyframes fadein {

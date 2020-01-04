@@ -104,8 +104,6 @@ export default function Router ({basepath = window.location.pathname, guards = {
     }, []);
 
     React.useEffect(() : void => {
-        console.log("Making the browser keep up to " + current);
-
         //Update browser
         if (window.location.pathname != current) {
             window.history.pushState("", window.document.title, current);

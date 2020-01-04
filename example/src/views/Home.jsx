@@ -15,8 +15,13 @@ export default function Home () {
         <div className="site-home">
             <Digital />
             <div className="site-title">
-                <h2>npm i react-complete-router</h2>
-                <Link to="start">How to use it</Link>
+                <div className="container">
+                    <div className="col-12">
+                        <img alt="logo" src="logo.png" className="col-md-3" />
+                    </div>
+                    <h2 className="mt-3">npm i react-complete-router</h2>
+                    <Link to="start" className="linkable">How to use it</Link>
+                </div>
             </div>
         </div>
     );

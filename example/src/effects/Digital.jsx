@@ -54,7 +54,7 @@ export default function Digital () {
         //Spawn stars
         for (let i = 0; i < 80; i++) {
             const size      = 1;
-            const colorUsed = "#49e6a7";
+            const colorUsed = "lightgray";
             const position  = new Vector2(window.innerWidth * Math.random(), window.innerHeight * Math.random());
             const booldir   = Math.random() > 0.5;
             const booldird  = (Math.random() > 0.5) ? 2 : -2;

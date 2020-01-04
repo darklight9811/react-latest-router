@@ -12,13 +12,13 @@ export default function Navbar () {
             <h4>RCR</h4>
 
             <div className="sidebar-links">
-                <Link to="/">Home</Link>
-                <Link to="/start">How to start</Link>
-                <Link to="/components">Components</Link>
-                <Link to="/guards">Guards</Link>
-                <Link to="/contexts">Contexts</Link>
-                <Link to="/extending">Extending</Link>
-                <Link to="/contribution">Contribution</Link>
+                <Link active to="/">Home</Link>
+                <Link active to="/start">How to start</Link>
+                <Link active to="/components">Components</Link>
+                <Link active to="/guards">Guards</Link>
+                <Link active to="/contexts">Contexts</Link>
+                <Link active to="/extending">Extending</Link>
+                <Link active to="/contribution">Contribution</Link>
             </div>
         </div>
     );
