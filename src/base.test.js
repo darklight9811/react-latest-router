@@ -1,16 +1,16 @@
 //Components
-import Router 	from './modules/Router';
-import Route 	from "./modules/Route";
-import Link 	from "./modules/Link";
-import Switch 	from "./modules/Switch";
+import Router 	from '../src/modules/Router';
+import Route 	from "../src/modules/Route";
+import Link 	from "../src/modules/Link";
+import Switch 	from "../src/modules/Switch";
 
 //Helpers
-import { testPath } from "./helpers/route";
+import { testPath } from "../src/helpers/route";
 
 //Guards
-import when 		from './guards/when';
-import guest 		from './guards/guest';
-import logged 		from './guards/logged';
+import when 		from '../src/guards/when';
+import guest 		from '../src/guards/guest';
+import logged 		from '../src/guards/logged';
 
 describe('Components present', () => {
 	it('Router', () => {

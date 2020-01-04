@@ -20,7 +20,7 @@
     "prepare": "npm run build",
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build",
-    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls"
+    "coveralls": "jest --coverage --env=jsdom && cat ./tests/coverage/lcov.info | coveralls --env=jsdom"
   },
   "dependencies": {},
   "peerDependencies": {
