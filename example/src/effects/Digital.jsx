@@ -26,8 +26,6 @@ export default function Digital () {
         //Clear canvas
         canvas.clearRect(0, 0, canvasElement.width, canvasElement.height);
 
-        console.log(trails);
-
         //Call all stars to update their animation
         for (let i = 0; i < trails.length; i++) {
             trails[i].draw();

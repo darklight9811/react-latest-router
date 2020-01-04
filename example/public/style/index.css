@@ -4,6 +4,7 @@
 body {
     background-color: #121212;
     overflow-x: hidden;
+    font-family: sans-serif;
 }
 .site-home {
     height: 100vh;
@@ -18,10 +19,35 @@ body {
 
 .sidebar {
     background-color: #343434;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
 }
 
 .sidebar-links {
     display: flex;
     flex-direction: column;
+}
+
+p {
+    text-align: justify;
+}
+
+pre {
+    background-color: #123 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.dashview {
+    animation: fadein 0.3s ease;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
 }

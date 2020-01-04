@@ -11,7 +11,7 @@ export default function Dashview ({title, children}) {
     //----------------------------
 
     return (
-        <div className="row">
+        <div className="row dashview">
             <div className="col-md-3">
                 <Navbar />
             </div>
@@ -19,7 +19,9 @@ export default function Dashview ({title, children}) {
                 <div className="row">
                     {title && <h2 className="col-12">{title}</h2>}
                     <div className="col-12">
-                        {children}
+                        <div className="container">
+                            {children}
+                        </div>
                     </div>
                 </div>
             </div>
