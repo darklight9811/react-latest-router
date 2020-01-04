@@ -95,13 +95,13 @@ export default function Router ({basepath = window.location.pathname, guards = {
 
         //Unbind
         return () => {
-            document.removeEventListener("hashchange", handleHash,false);
+            document.removeEventListener("hashchange", handleHash, false);
         };
     }, []);
 
     React.useEffect(() : void => {
         //Update browser
-        window.history.pushState({}, window.document.title, current);
+        window.history.pushState("", window.document.title, current);
     }, [current]);
 
     //----------------------------

@@ -60,6 +60,10 @@ export default function Guards () {
             <h4>logged</h4>
 
             <p>Just as guest guard, this will check for auth in router's props and will only pass if it's different from false/null.</p>
+            
+            <h4>title</h4>
+
+            <p>Updates the browser page when the route is applied, be careful to not stack those, since they will override one another.</p>
         </Dashview>
     );
 }

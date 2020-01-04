@@ -16,16 +16,16 @@ import NotFound		from "./views/NotFound";
 
 export default function App () {
 	return (
-		<Router>			
+		<Router basetitle="RCR">			
 			<Switch>
-				<Route path="/" 			to={Home} 			/>
-				<Route path="/start"		to={Start} 			/>
-				<Route path="/components"	to={Components}		/>
-				<Route path="/guards"		to={Guards}			/>
-				<Route path="/contexts"		to={Contexts}		/>
-				<Route path="/extending"	to={Extending}		/>
-				<Route path="/contribution"	to={Contribution}	/>
-				<Route 						to={NotFound} 		/>
+				<Route path="/" 			to={Home} 			title="" 			/>
+				<Route path="/start"		to={Start} 			title="Start"		/>
+				<Route path="/components"	to={Components}		title="Components"	/>
+				<Route path="/guards"		to={Guards}			title="Guards" 		/>
+				<Route path="/contexts"		to={Contexts}		title="Contexts" 	/>
+				<Route path="/extending"	to={Extending}		title="Extending"	/>
+				<Route path="/contribution"	to={Contribution}	title="Contribution"/>
+				<Route 						to={NotFound} 		title="Not found"	/>
 			</Switch>
 		</Router>
 	);
