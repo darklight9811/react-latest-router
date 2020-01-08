@@ -51,6 +51,7 @@ var dumbdata = {
     redirect: function (data) { }
 };
 var RouterContext = React.createContext(dumbdata);
+//# sourceMappingURL=Router.js.map
 
 //Turn a string guard into a object
 function buildGuard(guardstring) {
@@ -80,6 +81,7 @@ function printGuard(props) {
     }
     return response;
 }
+//# sourceMappingURL=guard.js.map
 
 //Check router authentication and only pass if none is given
 function guest(_arguments, data) {
@@ -89,6 +91,7 @@ function guest(_arguments, data) {
     //Check for guest
     return !data.router["auth"];
 }
+//# sourceMappingURL=guest.js.map
 
 //Check router authentication and only pass if none is given
 function logged(_arguments, data) {
@@ -98,6 +101,7 @@ function logged(_arguments, data) {
     //Check for log
     return !!data.router["auth"];
 }
+//# sourceMappingURL=logged.js.map
 
 //Check route validation
 function when(_arguments, data) {
@@ -107,6 +111,7 @@ function when(_arguments, data) {
     //Validate
     return !!data.route["when"];
 }
+//# sourceMappingURL=when.js.map
 
 //Test if the current path passes
 function testPath(path, current, exact) {
@@ -145,6 +150,7 @@ function testPath(path, current, exact) {
 // site.com/home/hi
 // site.com/home/hi/
 // site.com/hi
+//# sourceMappingURL=route.js.map
 
 //Helpers
 //Check route validation path
@@ -157,6 +163,7 @@ function path(_arguments, data) {
     //Validate
     return testPath(data.route["path"], data.context["current"], exact);
 }
+//# sourceMappingURL=path.js.map
 
 //When this route is applied, it will insert the title into the browser
 //Be careful to not stack this guard, since one will override another
@@ -173,6 +180,7 @@ function title(_arguments, data) {
     //No need of blocking
     return true;
 }
+//# sourceMappingURL=title.js.map
 
 //Guard functions
 //Bundle of default guards
@@ -183,12 +191,13 @@ var bundle = {
     path: path,
     title: title,
 };
+//# sourceMappingURL=index.js.map
 
 function Router(_a) {
     //----------------------------
     // Properties
     //----------------------------
-    var _b = _a.basepath, basepath = _b === void 0 ? window.location.pathname : _b, _c = _a.guards, guards = _c === void 0 ? {} : _c, props = __rest(_a, ["basepath", "guards"]);
+    var _b = _a.basepath, basepath = _b === void 0 ? "/" : _b, _c = _a.guards, guards = _c === void 0 ? {} : _c, props = __rest(_a, ["basepath", "guards"]);
     //states
     var _d = React.useState(basepath), current = _d[0], setcurrent = _d[1];
     var readyguards = React.useState(__assign({}, bundle, guards))[0];
@@ -240,11 +249,10 @@ function Router(_a) {
         return data;
     }, [current, props]);
     var onRedirect = React.useCallback(function (newpath) {
-        setcurrent(newpath);
+        setcurrent((basepath == "/" ? "" : basepath) + newpath);
     }, [current]);
     var handleHash = React.useCallback(function (event) {
         event.preventDefault();
-        console.log("Update page to " + window.location.pathname);
         if (window.location.pathname != current) {
             setcurrent(window.location.pathname);
         }
@@ -278,6 +286,7 @@ function Router(_a) {
     };
     return (React.createElement(RouterContext.Provider, { value: context }, props.children));
 }
+//# sourceMappingURL=Router.js.map
 
 function Route(_a) {
     //----------------------------
@@ -303,6 +312,7 @@ function Route(_a) {
     //----------------------------
     return React.createElement(Component, null);
 }
+//# sourceMappingURL=Route.js.map
 
 function Route$1(_a) {
     //----------------------------
@@ -321,20 +331,21 @@ function Route$1(_a) {
         if ("onClick" in props)
             props.onClick(event);
         //Redirect
-        redirect(props.to);
+        redirect(props.to[0] == "/" ? props.to : ("/" + props.to));
     }, [props]);
     //----------------------------
     // Memos
     //----------------------------
     var propclassName = React.useMemo(function () {
+        console.log(current, props.to);
         var activable = props.active;
         var baseclassname = props.className;
         if (!activable)
             return baseclassname ? baseclassname : "";
         if (current === props.to) {
-            return baseclassname ? (baseclassname + " ") : "" + (activable === true ? "active" : activable);
+            return (baseclassname ? (baseclassname + " ") : "") + (activable === true ? "active" : activable);
         }
-        return "";
+        return (baseclassname ? (baseclassname + " ") : "");
     }, [props, current]);
     //----------------------------
     // Render
@@ -383,6 +394,7 @@ function Switch(_a) {
     //----------------------------
     return ComponentToRender ? ComponentToRender : null;
 }
+//# sourceMappingURL=Switch.js.map
 
 //Modules components
 //Separated components
@@ -402,6 +414,7 @@ var bundled = {
     //Contexts
     RouterContext: RouterContext,
 };
+//# sourceMappingURL=index.js.map
 
 exports.Router = Router$1;
 exports.Route = Route$2;
