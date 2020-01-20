@@ -89,7 +89,8 @@ export default function Router ({basepath = "/", guards = {}, ...props}) {
     }, [current, props]);
 
     const onRedirect = React.useCallback((newpath : string) : void => {
-        setcurrent((basepath == "/" ? "":basepath) + newpath.replace(/(^\/|\/$)/, ""));
+		const path = newpath === "/" ? "/":newpath.replace(/(^\/|\/$)/, "");
+        setcurrent((basepath == "/" ? "":basepath) + path);
     }, [current]);
 
     const handleHash = React.useCallback((event) => {
