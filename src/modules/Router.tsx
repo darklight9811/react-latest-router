@@ -27,22 +27,16 @@ export default function Router ({basepath = "/", guards = {}, ...props}) {
 
 	const onProcessMimic = React.useCallback((_guard : string, data : Object = {}) : Object | boolean => {
 		//Build guard
-		const guard = buildGuard(_guard[i]);
+		const guard = buildGuard(_guard);
 
 		//Guard available
 		if (guard.name in readyguards) {
-			const response = readyguards[guard.name](guard.arguments, {data, router: props, context});
-
-			//Guard fail
-			if (!response) return false;
-
-			//Fill data
-			if (typeof response === "object") data = {...data, ...response};
+			return readyguards[guard.name](guard.arguments, {data, router: props, context});
 		}
-		else if (priority) {
-			console.warn("Requested guard [" + _guards[i] + "] was not found.");
-		}
-	}, [props, readyguards, current, context]);
+
+		//No guard available
+		return false;
+	}, [props, readyguards, current]);
 
     const onProcessRoute = React.useCallback((data : iRoute) : Object | boolean => {
         //Remove reserved props
@@ -92,10 +86,10 @@ export default function Router ({basepath = "/", guards = {}, ...props}) {
 
         //All guards passes
         return data;
-    }, [current, props, context]);
+    }, [current, props]);
 
     const onRedirect = React.useCallback((newpath : string) : void => {
-        setcurrent((basepath == "/" ? "":basepath) + newpath);
+        setcurrent((basepath == "/" ? "":basepath) + newpath.replace(/(^\/|\/$)/, ""));
     }, [current]);
 
     const handleHash = React.useCallback((event) => {
@@ -136,7 +130,8 @@ export default function Router ({basepath = "/", guards = {}, ...props}) {
         processRoute:       onProcessRoute,
         processGuard:       onProcessGuard,
         redirect:           onRedirect,
-        data:               props,
+		data:               props,
+		mimic:				onProcessMimic
     };
 
     return (
