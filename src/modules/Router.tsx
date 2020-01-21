@@ -26,7 +26,7 @@ export default function Router ({basepath = "/", guards = {}, ...props}) {
 	//----------------------------
 
 	const onSetCurrent = React.useCallback((newcurrent : string) => {
-		setcurrent(newcurrent.replace(/(^\/|\/$)/, ""));
+		setcurrent(basepath + newcurrent.replace(/(^\/|\/$)/, ""));
 	}, [setcurrent]);
 
 	const onProcessMimic = React.useCallback((_guard : string, data : Object = {}) : Object | boolean => {
@@ -92,16 +92,13 @@ export default function Router ({basepath = "/", guards = {}, ...props}) {
         return data;
     }, [current, props]);
 
-    const onRedirect = React.useCallback((newpath : string) : void => {
-		const path = newpath === "/" ? "/":newpath.replace(/(^\/|\/$)/, "");
-        onSetCurrent((basepath == "/" ? "":basepath) + path);
-    }, [current]);
-
     const handleHash = React.useCallback((event) => {
         //Prevent page reload
-        event.preventDefault();
+		event.preventDefault();
 
-        if (window.location.pathname.replace(/(^\/|\/$)/, "") != current) {
+		const path = window.location.pathname.replace(/(^\/|\/$)/, "");
+
+        if ("/" + path != current) {
             onSetCurrent(window.location.pathname);
         }
     }, [current]);
@@ -118,11 +115,11 @@ export default function Router ({basepath = "/", guards = {}, ...props}) {
         return () => {
             document.removeEventListener("hashchange", handleHash, false);
         };
-    }, []);
+    }, [current]);
 
     React.useEffect(() : void => {
         //Update browser
-        if (window.location.pathname.replace(/(^\/|\/$)/, "") != current) {
+        if ("/" + window.location.pathname.replace(/(^\/|\/$)/, "") != current) {
             window.history.pushState("", window.document.title, current);
         }
     }, [current]);
@@ -135,7 +132,7 @@ export default function Router ({basepath = "/", guards = {}, ...props}) {
         current:            current,
         processRoute:       onProcessRoute,
         processGuard:       onProcessGuard,
-        redirect:           onRedirect,
+        redirect:           onSetCurrent,
 		data:               props,
 		mimic:				onProcessMimic
     };

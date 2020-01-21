@@ -36,7 +36,7 @@ export default function Link ({...props}) {
 	//----------------------------
 
 	const targetMemo = React.useMemo(() => {
-		return props.to.replace(/(^\/|\/$)/, "");
+		return "/" + props.to.replace(/(^\/|\/$)/, "");
 	},[props.to]);
 
     const propclassName = React.useMemo(() => {
