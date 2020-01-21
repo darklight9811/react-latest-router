@@ -25,6 +25,10 @@ export default function Router ({basepath = "/", guards = {}, ...props}) {
     // Callbacks
 	//----------------------------
 
+	const onSetCurrent = React.useCallback((newcurrent : string) => {
+		setcurrent(newcurrent.replace(/(^\/|\/$)/, ""));
+	}, [setcurrent]);
+
 	const onProcessMimic = React.useCallback((_guard : string, data : Object = {}) : Object | boolean => {
 		//Build guard
 		const guard = buildGuard(_guard);
@@ -90,14 +94,15 @@ export default function Router ({basepath = "/", guards = {}, ...props}) {
 
     const onRedirect = React.useCallback((newpath : string) : void => {
 		const path = newpath === "/" ? "/":newpath.replace(/(^\/|\/$)/, "");
-        setcurrent((basepath == "/" ? "":basepath) + path);
+        onSetCurrent((basepath == "/" ? "":basepath) + path);
     }, [current]);
 
     const handleHash = React.useCallback((event) => {
+        //Prevent page reload
         event.preventDefault();
 
-        if (window.location.pathname != current) {
-            setcurrent(window.location.pathname);
+        if (window.location.pathname.replace(/(^\/|\/$)/, "") != current) {
+            onSetCurrent(window.location.pathname);
         }
     }, [current]);
 
@@ -117,7 +122,7 @@ export default function Router ({basepath = "/", guards = {}, ...props}) {
 
     React.useEffect(() : void => {
         //Update browser
-        if (window.location.pathname != current) {
+        if (window.location.pathname.replace(/(^\/|\/$)/, "") != current) {
             window.history.pushState("", window.document.title, current);
         }
     }, [current]);
