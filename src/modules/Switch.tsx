@@ -44,13 +44,13 @@ export default function Switch ({...props}) {
 
 				if (typeof child.type === "function" && child.type.name == "Route") {
 					//Is a component
-					if (React.isValidElement(renderable)) return setcomponent (renderable);
+					if (React.isValidElement(renderable)) return setcomponent (React.cloneElement(renderable, {...renderable.props,...newprops}));
 					//Is a literal
 					else return setcomponent(React.createElement(renderable, newprops));
 				}
 				else {
 					//Is a component
-					if (React.isValidElement(child)) return setcomponent (child);
+					if (React.isValidElement(child)) return setcomponent (React.cloneElement(child, {...child.props,...newprops}));
 					//Is a literal
 					else return setcomponent(React.createElement(child, newprops));
 				}
