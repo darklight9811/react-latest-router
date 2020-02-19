@@ -1,6 +1,6 @@
 {
   "name": "react-complete-router",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Tired of having to implement things that should come natively? Are you the one they said that the thing you wanted is unnecessary because nobody does it? So this router is for you! I&amp;#x27;m tired of people saying that I should implement work arounds in things that should support them, so I decided to make a router that can be fully customizable to your needs, meed RCR!",
   "author": "aposoftworks",
   "license": "BSD-3",
@@ -9,7 +9,7 @@
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "engines": {
-    "node": ">=8",
+    "node": ">=10",
     "npm": ">=5"
   },
   "scripts": {
@@ -35,7 +35,7 @@
     "babel-core": "^6.26.3",
     "babel-runtime": "^6.26.0",
     "cross-env": "^5.1.4",
-    "gh-pages": "^1.2.0",
+    "gh-pages": "^2.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts-ts": "^2.16.0",
