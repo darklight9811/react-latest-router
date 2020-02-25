@@ -27,7 +27,13 @@ export default function Router ({basepath = "/", guards = {}, sticky = false, ..
 	//----------------------------
 
 	const onSetCurrent = React.useCallback((newcurrent : string) => {
-		setcurrent(basepath + newcurrent.replace(/(^\/|\/$)/, ""));
+		const base 		= basepath.replace(/\/$/, "");
+		const target 	= newcurrent.replace(/(^\/|\/$)/, "");
+
+		if (base == "" && target == "")
+			setcurrent("/");
+		else
+			setcurrent(base + (target === "" ? "":("/" + target)));
 	}, [setcurrent]);
 
 	const onProcessMimic = React.useCallback((_guard : string, data : Object = {}) : Object | boolean => {
@@ -151,6 +157,7 @@ export default function Router ({basepath = "/", guards = {}, sticky = false, ..
 		data:               props,
 		mimic:				onProcessMimic,
 		back: 				onProcessBack,
+		basepath:			basepath,
     };
 
     return (
